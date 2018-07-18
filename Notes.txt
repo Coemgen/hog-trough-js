@@ -1,0 +1,47 @@
+http://usejsdoc.org/index.html#block-tags
+
+https://www.w3schools.com/html/html5_syntax.asp
+
+https://www.w3schools.com/js/js_conventions.asp
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_2015_support_in_Mozilla
+
+/**
+
+JSLint will recognize the good parts of ES6.
+
+Currently, these features are recognized:
+
+The ... ellipsis marker in parameter lists and argument lists, replacing the
+arguments object for variadic functions.
+
+The let statement, which is like the var statement except that it respects block
+scope. You may use let or var but not both.
+
+The const statement is like the let statement except that it disallows the use
+of assignment on the variable, although if the value of the variable is mutable,
+it can still be mutated. const is preferred to let.
+
+Destructuring of arrays and objects is allowed in parameter lists and on the
+left side of let, and const, but not var or assignment statements, and not deep
+destructuring or eliding.
+
+Enhanced object literals, providing shorter forms for function declaration and
+properties that are initialized by variables with the same name.
+
+The fat arrow => fart functions.
+
+The simplest forms of import and export.
+
+`Megastring` literals, but not nested `megastring` literals.
+
+New global functions, such as Map, Set, WeakMap, and WeakSet.
+
+0b- and 0o- number literals.
+
+The most important new feature of ES6 is proper tail calls. This has no new
+syntax, so JSLint doesn’t see it. But it makes recursion much more attractive,
+which makes loops, particularly for loops, much less attractive.
+
+/**
+
