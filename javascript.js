@@ -39,7 +39,6 @@
          * Get Restaurants object.
          * @function get
          * @memberof! HT.Restaurant
-         * @param {void}
          * @returns {object} Restaurants object.
          */
         let get = function () {
@@ -76,7 +75,7 @@
              * Get current date in UTC format.
              * @function get
              * @memberof! HT.UtcDate
-             * @returns {object} The current UTC date object.
+             * @returns {string} The current date in UTC format.
              */
             get: function () {
                 return utcDate;
@@ -98,7 +97,6 @@
              * @function new
              * @memberof! HT.GroupOrder
              * @param {object} jQuery The jQuery global.
-             * @returns {object} New group order page.
              */
             new: function () {
                 $("div#main").attr("hidden", true);
@@ -119,10 +117,18 @@
     }(jQuery));
 }());
 
-// jQuery ready function
+/**
+ * [jQuery ready function]{@link https://api.jquery.com/ready/} invocation.
+ * @namespace jQuery-triggers
+ * @memberof HT
+ */
 $(function () {
     "use strict";
-    // restaurant select event
+    /**
+     * Trigger for Restaurant select events.
+     * @name change-restaurant
+     * @memberof! HT.jQuery-triggers
+     */
     $("select#restaurant").on(
         "change",
         function () {
@@ -133,7 +139,11 @@ $(function () {
                 ]
             );
         });
-    // form submit event
+    /**
+     * Trigger for New Group Order submit events.
+     * @name submit-new-group-order
+     * @memberof! HT.jQuery-triggers
+     */
     $("form#newgrouporderform").on(
         "submit",
         function (event) {
