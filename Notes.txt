@@ -6,6 +6,27 @@ https://www.w3schools.com/js/js_conventions.asp
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_2015_support_in_Mozilla
 
+https://www.npmjs.com/package/jsdoc
+jsdoc yourJavaScriptFile.js
+
+;;;;
+
+http://devnull.absolventa.de/2014/03/25/jsdoc-and-the-revealing-module-pattern/
+/**
+ * @namespace Absolventa
+ */
+(function() {
+    window.Absolventa = window.Absolventa || {};
+}());
+
+/**
+ * @namespace Urlify
+ * @memberof Absolventa
+ * @requires {@link Absolventa.Helpers}
+ */
+
+;;;;
+
 /**
 
 JSLint will recognize the good parts of ES6.

@@ -1,98 +1,123 @@
 /*jshint jquery:true*/
+/*globals HT*/
 /**
  * @file Hog Trough
  * @version 0.0
  * @author Kevin Griffin <kevin.griffin@gmail.com>
- *
  * @todo Write the documentation.
  * @todo Implement this function.
  */
 
 /**
- * @global
- * @param {Object} $ jQuery reference
- * @returns {Object} public methods and properties
- *
- * {@link http://www.adequatelygood.com/JavaScript-Module-Pattern-In-Depth.html
-Module Pattern}
- * This is an anonymous closure which is the fundamental construct that makes
+ * Hog Trough
+ * <p>This is an anonymous closure which is the fundamental construct that makes
  * it all possible, and really is the single best feature of JavaScript. We’ll
  * simply create an anonymous function, and execute it immediately. All of the
  * code that runs inside the function lives in a closure, which provides
  * privacy and state throughout the lifetime of our application.
+ * See [Module Pattern]{@link
+ * http://www.adequatelygood.com/JavaScript-Module-Pattern-In-Depth.html}.</p>
+ * @namespace HT
  */
-
-/**
- * Restaurants.
- * @param {void}
- * @returns {object} Restaurants object.
- */
-let restaurant = (function () {
-    "use strict";
-    let json = {
-        "--TBD--": "http://www.google.com",
-        "BERTUCCI'S": "http://www.bertuccis.com/",
-        "PAPA GINOS": "https://www.papaginos.com/menu"
-    };
-    let get = function () {
-        return json;
-    };
-    return {
-        get
-    };
+(function () {
+    window.HT = {};
 }());
 
 /**
- * Current date in UTC format.
- * @returns {object} The current UTC date object.
+ * @namespace Restaurant
+ * @memberof HT
  */
-let utcDate = (function () {
+(function () {
     "use strict";
-    let d = new Date();
-    let yyyy = d.getFullYear();
-    let mm = d.getMonth() + 1;
-    let dd = d.getDate();
-    let hh = d.getHours();
-    let MM = d.getMinutes();
-    let utcDate = yyyy + "-" +
-        mm.toString().padStart(2, "0") + "-" +
-        dd.toString().padStart(2, "0") +
-        "T" +
-        hh.toString().padStart(2, "0") + ":" +
-        MM.toString().padStart(2, "0") + ":" +
-        "00";
-    return {
-        get: function () {
-            return utcDate;
-        }
-    };
+    HT.Restaurant = (function () {
+        let json = {
+            "--TBD--": "http://www.google.com",
+            "BERTUCCI'S": "http://www.bertuccis.com/",
+            "PAPA GINOS": "https://www.papaginos.com/menu"
+        };
+        /**
+         * Get Restaurants object.
+         * @function get
+         * @memberof! HT.Restaurant
+         * @param {void}
+         * @returns {object} Restaurants object.
+         */
+        let get = function () {
+            return json;
+        };
+        return {
+            get
+        };
+    }());
 }());
 
 /**
- * New group order page.
- * @param {object} jQuery The jQuery global.
- * @returns {object} New group order page.
+ * @namespace UtcDate
+ * @memberof HT
  */
-let GO = (function ($) {
+(function () {
     "use strict";
-    return {
-        newGroupOrder: function () {
-            $("div#main").attr("hidden", true);
-            $("#newgrouporder").attr("hidden", false);
-            // restaurant SELECT should be in restaurant module???
-            Object.entries(restaurant.get()).forEach(
-                function (curVal) {
-                    $("select#restaurant").append(
-                        "<option value=\"" + curVal[0] + "\">" +
-                        curVal[0] + "</option>"
-                    );
-                }
-            );
-            $("input#orderByTime").val(utcDate.get());
-            $("input#orderPickupTime").val(utcDate.get());
-        }
-    };
-}(jQuery));
+    HT.UtcDate = (function () {
+        let d = new Date();
+        let yyyy = d.getFullYear();
+        let mm = d.getMonth() + 1;
+        let dd = d.getDate();
+        let hh = d.getHours();
+        let MM = d.getMinutes();
+        let utcDate = yyyy + "-" +
+            mm.toString().padStart(2, "0") + "-" +
+            dd.toString().padStart(2, "0") +
+            "T" +
+            hh.toString().padStart(2, "0") + ":" +
+            MM.toString().padStart(2, "0") + ":" +
+            "00";
+        return {
+            /**
+             * Get current date in UTC format.
+             * @function get
+             * @memberof! HT.UtcDate
+             * @returns {object} The current UTC date object.
+             */
+            get: function () {
+                return utcDate;
+            }
+        };
+    }());
+}());
+
+/**
+ * @namespace GroupOrder
+ * @memberof HT
+ */
+(function () {
+    "use strict";
+    HT.GroupOrder = (function ($) {
+        return {
+            /**
+             * Open new Group Order page.
+             * @function new
+             * @memberof! HT.GroupOrder
+             * @param {object} jQuery The jQuery global.
+             * @returns {object} New group order page.
+             */
+            new: function () {
+                $("div#main").attr("hidden", true);
+                $("#newgrouporder").attr("hidden", false);
+                // restaurant SELECT should be in restaurant module???
+                Object.entries(HT.Restaurant.get()).forEach(
+                    function (curVal) {
+                        $("select#restaurant").append(
+                            "<option value=\"" + curVal[0] + "\">" +
+                            curVal[0] + "</option>"
+                        );
+                    }
+                );
+                $("input#orderByTime").val(HT.UtcDate.get());
+                $("input#orderPickupTime").val(HT.UtcDate.get());
+            }
+        };
+    }(jQuery));
+}());
 
 // jQuery ready function
 $(function () {
@@ -103,7 +128,7 @@ $(function () {
         function () {
             $("a#menulink").attr(
                 "href",
-                restaurant.get()[
+                HT.Restaurant.get()[
                     $("select#restaurant option:selected").val()
                 ]
             );
