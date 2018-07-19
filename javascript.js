@@ -1,5 +1,6 @@
-/*jshint jquery:true*/
+/*jshint browser:true, jquery:true*/
 /*globals HT*/
+
 /**
  * @file Hog Trough
  * @version 0.0
@@ -8,9 +9,6 @@
  * @todo Implement this function.
  */
 
-// import * as activeOrdersObj from "active-orders";
-import "active-orders";
-debugger;
 /**
  * Hog Trough
  * <p>This is an anonymous closure which is the fundamental construct that makes
@@ -25,6 +23,34 @@ debugger;
 (function () {
     "use strict";
     window.HT = {};
+}());
+
+/**
+ * @namespace Utils
+ * @memberof HT
+ */
+(function () {
+    "use strict";
+    HT.Utils = (function () {
+        /**
+         * Format decimal number into a USD money string.
+         * @function get
+         * @memberof! HT.Restaurant
+         * @param {number} cashNum
+         * @returns {object} Restaurants object.
+         */
+        let monify = function (cashNum) {
+            return cashNum.toLocaleString(
+                "en-US", {
+                    "style": "currency",
+                    "currency": "USD"
+                });
+        };
+        return {
+            monify
+        };
+
+    }());
 }());
 
 /**
@@ -129,6 +155,9 @@ debugger;
  */
 (function () {
     "use strict";
+    let pickRestOrdSort = function (ordersArr) {
+        return [];
+    }
     HT.Orders = (function ($) {
         return {
             /**
@@ -137,28 +166,28 @@ debugger;
              * @memberof! HT.Orders
              * @param {object} jQuery The jQuery global.
              */
-            display: function (ordersObj) {
+            display: function (ordersArr) {
                 $("#newgrouporder").attr("hidden", true);
                 $("#ordersview").attr("hidden", false);
+                // need to format ordersArr into an pickup time, restaurant,
+                // time order placed sort
+                $("table#0 caption").html("Papa Ginos");
                 $("#ordersview tbody").append(
                     "<tr>" +
                     "<td>" +
-                    ordersObj.restaurant +
+                    "Griffin,Kevin" +
                     "</td>" +
                     "<td>" +
-                    ordersObj.numberOfOrders +
+                    "pizza" +
                     "</td>" +
                     "<td>" +
-                    ordersObj.orderByTime +
+                    HT.Utils.monify(9.99) +
                     "</td>" +
                     "<td>" +
-                    ordersObj.orderPickupTime +
+                    HT.Utils.monify(Number("9.99") * 0.07) +
                     "</td>" +
                     "<td>" +
-                    ordersObj.orderText +
-                    "</td>" +
-                    "<td>" +
-                    ordersObj.orderPrice +
+                    HT.Utils.monify((Number("9.99") * 0.07) + Number("9.99")) +
                     "</td>" +
                     "</tr>"
                 );
@@ -169,15 +198,15 @@ debugger;
 
 /**
  * [jQuery ready function]{@link https://api.jquery.com/ready/} invocation.
- * @namespace jQuery-triggers
+ * @namespace jQuery-ready-fxn
  * @memberof HT
  */
-$(function () {
+$(function (ordersArr) {
     "use strict";
     /**
      * Handler for Restaurant select event.
      * @name change-restaurant
-     * @memberof! HT.jQuery-triggers
+     * @memberof! HT.jQuery-read-fxn
      */
     $("select#restaurant").on(
         "change",
@@ -192,7 +221,7 @@ $(function () {
     /**
      * Handler for New Group Order submit event.
      * @name submit-new-group-order
-     * @memberof! HT.jQuery-triggers
+     * @memberof! HT.jQuery-ready-fxn
      */
     $("form#newgrouporderform").on(
         "submit",
@@ -206,4 +235,10 @@ $(function () {
             event.preventDefault();
             HT.Orders.display(formObj);
         });
-});
+    /**
+     * Display Orders
+     * @name display-orders
+     * @memberof! HT.jQuery-ready-fxn
+     */
+    HT.Orders.display(ordersArr);
+}(ordersArr));
