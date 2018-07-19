@@ -20,6 +20,7 @@
  * @namespace HT
  */
 (function () {
+    "use strict";
     window.HT = {};
 }());
 
@@ -99,7 +100,9 @@
              * @param {object} jQuery The jQuery global.
              */
             new: function () {
-                $("div#main").attr("hidden", true);
+                // $("div#main").attr("hidden", true);
+                $("div#main").empty();
+                $("#ordersview").attr("hidden", true);
                 $("#newgrouporder").attr("hidden", false);
                 // restaurant SELECT should be in restaurant module???
                 Object.entries(HT.Restaurant.get()).forEach(
@@ -118,6 +121,50 @@
 }());
 
 /**
+ * @namespace Orders
+ * @memberof HT
+ */
+(function () {
+    "use strict";
+    HT.Orders = (function ($) {
+        return {
+            /**
+             * Open Orders page.
+             * @function display
+             * @memberof! HT.Orders
+             * @param {object} jQuery The jQuery global.
+             */
+            display: function (ordersObj) {
+                $("#newgrouporder").attr("hidden", true);
+                $("#ordersview").attr("hidden", false);
+                $("#ordersview tbody").append(
+                    "<tr>" +
+                    "<td>" +
+                    ordersObj.restaurant +
+                    "</td>" +
+                    "<td>" +
+                    ordersObj.numberOfOrders +
+                    "</td>" +
+                    "<td>" +
+                    ordersObj.orderByTime +
+                    "</td>" +
+                    "<td>" +
+                    ordersObj.orderPickupTime +
+                    "</td>" +
+                    "<td>" +
+                    ordersObj.orderText +
+                    "</td>" +
+                    "<td>" +
+                    ordersObj.orderPrice +
+                    "</td>" +
+                    "</tr>"
+                );
+            }
+        };
+    }(jQuery));
+}());
+
+/**
  * [jQuery ready function]{@link https://api.jquery.com/ready/} invocation.
  * @namespace jQuery-triggers
  * @memberof HT
@@ -125,7 +172,7 @@
 $(function () {
     "use strict";
     /**
-     * Trigger for Restaurant select events.
+     * Handler for Restaurant select event.
      * @name change-restaurant
      * @memberof! HT.jQuery-triggers
      */
@@ -140,7 +187,7 @@ $(function () {
             );
         });
     /**
-     * Trigger for New Group Order submit events.
+     * Handler for New Group Order submit event.
      * @name submit-new-group-order
      * @memberof! HT.jQuery-triggers
      */
@@ -154,5 +201,6 @@ $(function () {
                         return formObj;
                     }, {});
             event.preventDefault();
+            HT.Orders.display(formObj);
         });
 });
