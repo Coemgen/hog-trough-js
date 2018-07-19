@@ -4,7 +4,22 @@ https://www.w3schools.com/html/html5_syntax.asp
 
 https://www.w3schools.com/js/js_conventions.asp
 
+;;;
+
+JavaScript "The Better Parts":
+https://www.youtube.com/watch?v=DxnYQRuLX7Q
+ es6 "better parts"
+ proper tail calls
+ elipsis operator
+ modules (asynchronous)
+ let, const (var confusing for Java programmers)
+ destructuring e.g., let {that, other} = some_object instead of let that = some_object.that, ...
+ WeakMap allows nonstring keys in an object-like structure
+ MegaString literals (use for Regular Expression literals)
+SEE:
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_2015_support_in_Mozilla
+
+;;;
 
 https://www.npmjs.com/package/jsdoc
 jsdoc yourJavaScriptFile.js
