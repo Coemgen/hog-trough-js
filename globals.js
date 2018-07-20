@@ -24,10 +24,10 @@ const ordersArr = [
     ["2018-07-21T14:15", "BERTUCCI'S", "", "",
         "Brown,John", "spaghetti", "9.99"
     ],
-    ["2018-07-19T15:00", "PAPA GINOS", "2018-07-19T14:45", "20",
+    ["2018-07-22T15:00", "PAPA GINOS", "2018-07-19T14:45", "20",
         "Steel,Lisa", "large pizza", "10.99"
     ],
-    ["2018-07-19T15:00", "PAPA GINOS", "", "",
+    ["2018-07-22T15:00", "PAPA GINOS", "", "",
         "Regan,Tom", "cheese pizza", "8.99"
     ],
     ["2018-07-21T14:15", "BERTUCCI'S", "", "",
