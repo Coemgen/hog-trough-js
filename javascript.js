@@ -155,8 +155,52 @@
  */
 (function () {
     "use strict";
-    let pickRestOrdSort = function (ordersArr) {
-        return [];
+    let curDate = HT.UtcDate.get();
+    let getObj = function (ordersArr) {
+        /*
+        forEach order
+            if pickup time is less than current plus a couple of hours
+                if restaurant not indexed for this time
+                    add restaurant
+                        add order
+                else add order to the proper restaurant
+        {
+            PAPA GINOS: {
+                pickuptime:2018...,
+                orderbytime:2018...,
+                numoforders:20,
+                orders: [{placer:Griffin,Kevin,order:Pizza,price:12.00},...]
+            },
+            ....
+        },
+        */
+        return ordersArr.reduce(
+            function (obj, curVal) {
+                /* orderPickupTime
+                 * restaurant
+                 * orderByTime     // order coordinator only
+                 * numberOfOrders  // order coordinator only
+                 * userID
+                 * orderText
+                 * orderPrice
+                 */
+                if (curVal[0] > curDate) {
+                    if (obj[curVal[1]] === undefined) {
+                        obj[curVal[1]] = {};
+                        obj[curVal[1]].orders = [];
+                    }
+                    obj[curVal[1]].pickupTime = curVal[0];
+                    obj[curVal[1]].orderByTime = curVal[2];
+                    obj[curVal[1]].numOfOrders = curVal[3];
+                    obj[curVal[1]].orders.push({
+                        "placer": curVal[4],
+                        "order": curVal[5],
+                        "price": curVal[6]
+                    });
+                    debugger;
+                }
+                return obj;
+            }, {});
     }
     HT.Orders = (function ($) {
         return {
@@ -167,31 +211,48 @@
              * @param {object} jQuery The jQuery global.
              */
             display: function (ordersArr) {
+                let ordObj = HT.Orders.getObj(ordersArr);
+                let price = 0;
+                let tax = 0;
+                let total = 0;
+                let grandTotal = 0;
                 $("#newgrouporder").attr("hidden", true);
                 $("#ordersview").attr("hidden", false);
-                // need to format ordersArr into an pickup time, restaurant,
-                // time order placed sort
-                $("table#0 caption").html("Papa Ginos");
-                $("#ordersview tbody").append(
-                    "<tr>" +
-                    "<td>" +
-                    "Griffin,Kevin" +
-                    "</td>" +
-                    "<td>" +
-                    "pizza" +
-                    "</td>" +
-                    "<td>" +
-                    HT.Utils.monify(9.99) +
-                    "</td>" +
-                    "<td>" +
-                    HT.Utils.monify(Number("9.99") * 0.07) +
-                    "</td>" +
-                    "<td>" +
-                    HT.Utils.monify((Number("9.99") * 0.07) + Number("9.99")) +
-                    "</td>" +
-                    "</tr>"
-                );
-            }
+                Object.keys(ordObj).forEach(
+                    function (curVal) {
+                        $("table#0 caption").html(curVal);
+                        ordObj[curVal].orders.forEach(
+                            function (curVal) {
+                                price = Number(curVal.price);
+                                tax = Number(price) * 0.07;
+                                total = price + tax;
+                                $("#ordersview tbody").append(
+                                    "<tr>" +
+                                    "<td>" +
+                                    curVal.placer +
+                                    "</td>" +
+                                    "<td>" +
+                                    curVal.order +
+                                    "</td>" +
+                                    "<td>" +
+                                    HT.Utils.monify(price) +
+                                    "</td>" +
+                                    "<td>" +
+                                    HT.Utils.monify(tax) +
+                                    "</td>" +
+                                    "<td>" +
+                                    HT.Utils.monify(total) +
+                                    "</td>" +
+                                    "</tr>"
+                                );
+                                grandTotal += total;
+                            });
+                        $("table#0 tfoot tr th.grand-total").html(
+                            HT.Utils.monify(grandTotal)
+                        );
+                    });
+            },
+            getObj
         };
     }(jQuery));
 }());
