@@ -150,6 +150,42 @@
 }());
 
 /**
+ * @namespace OneOrder
+ * @memberof HT
+ */
+(function () {
+    "use strict";
+    HT.OneOrder = (function ($) {
+        return {
+            /**
+             * Open new Group Order page.
+             * @function new
+             * @memberof! HT.GroupOrder
+             * @param {string} restaurant
+             */
+            new: function (restaurant) {
+                // $("div#main").attr("hidden", true);
+                $("div#main").empty();
+                $("#ordersview").attr("hidden", true);
+                $("#newgrouporder").attr("hidden", false);
+                Object.entries(HT.Restaurant.get()).forEach(
+                    function (curVal) {
+                        $("select#restaurant").append(
+                            "<option value=\"" + curVal[0] +
+                            (restaurant === curVal ? " selected" : "") +
+                            "\">" +
+                            curVal[0] + "</option>"
+                        );
+                    }
+                );
+                $("input#orderByTime").val(HT.UtcDate.get());
+                $("input#orderPickupTime").val(HT.UtcDate.get());
+            }
+        };
+    }(jQuery));
+}());
+
+/**
  * @namespace Orders
  * @memberof HT
  */
@@ -179,9 +215,9 @@
             function (obj, curVal) {
                 /*
                  * curVal =
-                 * 0 orderPickupTime
+                 * 0 orderPickupDate
                  * 1 restaurant
-                 * 2 orderByTime     // order coordinator only
+                 * 2 orderByDate     // order coordinator only
                  * 3 numberOfOrders  // order coordinator only
                  * 4 userID
                  * 5 orderText
@@ -190,11 +226,12 @@
                 if (curVal[0] > curDate) {
                     if (obj[curVal[1]] === undefined) {
                         obj[curVal[1]] = {};
+                        // first order will be from order admin
+                        obj[curVal[1]].pickupDate = curVal[0];
+                        obj[curVal[1]].orderByDate = curVal[2];
+                        obj[curVal[1]].numOfOrders = Number(curVal[3]);
                         obj[curVal[1]].orders = [];
                     }
-                    obj[curVal[1]].pickupTime = curVal[0];
-                    obj[curVal[1]].orderByTime = curVal[2];
-                    obj[curVal[1]].numOfOrders = curVal[3];
                     obj[curVal[1]].orders.push({
                         "placer": curVal[4],
                         "order": curVal[5],
@@ -233,6 +270,9 @@
         let ordObj = getObj(ordersArr);
         let grandTotal = 0;
         let tableID = "";
+        let rowCount = 0;
+        let ordByDate = {};
+        let pickupDate = {};
         $("#newgrouporder").attr("hidden", true);
         $("#ordersview").attr("hidden", false);
         Object.keys(ordObj).forEach(
@@ -241,7 +281,15 @@
                 tableID = ("table" + index);
                 $("div#ordersview").append(tableHtml);
                 $("table#default-table").attr("id", tableID);
-                $("table#" + tableID + " caption").html(curVal);
+                ordByDate = new Date(ordObj[curVal].orderByDate);
+                pickupDate = new Date(ordObj[curVal].pickupDate);
+                $("table#" + tableID + " caption").html(
+                    curVal +
+                    ",&nbsp;orders&nbsp;by&#58;&nbsp;" +
+                    ordByDate.toLocaleString("en-US") +
+                    ",&nbsp;pickup&nbsp;time&#58;&nbsp;" +
+                    pickupDate.toLocaleString("en-US")
+                );
                 ordObj[curVal].orders.forEach(
                     function (curVal) {
                         grandTotal += formatOrder(curVal, tableID);
@@ -249,6 +297,18 @@
                 $("table#" + tableID + " tfoot tr th.grand-total").html(
                     HT.Utils.monify(grandTotal)
                 );
+                rowCount = ordObj[curVal].orders.length;
+                if (rowCount < ordObj[curVal].numOfOrders) {
+                    $("table#" + tableID + " tfoot tr th:eq(0)").html(
+                        "<a>Add me/edit my order</a>"
+                    );
+                }
+                $("table#" + tableID + " tfoot tr th:eq(0)").on(
+                    "click",
+                    function (curVal) {
+                    HT.oneOrder.new(curVal)
+                    }
+                    );
             });
     };
     // get table default html from index.html
