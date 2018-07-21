@@ -164,20 +164,21 @@
              * @param {string} restaurant
              */
             new: function (restaurant) {
-                // $("div#main").attr("hidden", true);
                 $("div#main").empty();
                 $("#ordersview").attr("hidden", true);
                 $("#newgrouporder").attr("hidden", false);
                 Object.entries(HT.Restaurant.get()).forEach(
                     function (curVal) {
                         $("select#restaurant").append(
-                            "<option value=\"" + curVal[0] +
-                            (restaurant === curVal ? " selected" : "") +
-                            "\">" +
+                            "<option value=\"" + curVal[0] + "\"" +
+                            (restaurant === curVal[0] ? " selected>" : ">") +
                             curVal[0] + "</option>"
                         );
                     }
                 );
+                $("select#restaurant").attr("disabled", true);
+                $("select#restaurant option:selected")
+                    .trigger("change");
                 $("input#orderByTime").val(HT.UtcDate.get());
                 $("input#orderPickupTime").val(HT.UtcDate.get());
             }
@@ -305,10 +306,10 @@
                 }
                 $("table#" + tableID + " tfoot tr th:eq(0)").on(
                     "click",
-                    function (curVal) {
-                    HT.oneOrder.new(curVal)
+                    function () {
+                        HT.OneOrder.new(curVal)
                     }
-                    );
+                );
             });
     };
     // get table default html from index.html
