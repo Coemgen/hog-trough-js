@@ -9,8 +9,7 @@ const Utils = (function () {
     };
     const monify = function (sum) {
         return sum.toLocaleString(
-            "en-US",
-            {
+            "en-US", {
                 style: "currency",
                 currency: "USD",
                 maximumFractionDigits: 2
