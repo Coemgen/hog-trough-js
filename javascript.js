@@ -1,9 +1,6 @@
-/*jshint browser:true, jquery:true*/
-/*global ORDERS_ARR, REST_ARR*/
-
 /**
-* Utils
-*/
+ * Utils
+ */
 const Utils = (function () {
     "use strict";
     const datify = function (milSecs) {
@@ -27,8 +24,8 @@ const Utils = (function () {
 }());
 
 /**
-*
-*/
+ *
+ */
 const Restaurant = (function () {
     "use strict";
     const json = (function () {
@@ -36,8 +33,7 @@ const Restaurant = (function () {
             function (json, restArr) {
                 json[restArr[0]] = restArr[1];
                 return json;
-            },
-            {}
+            }, {}
         );
     }());
     const getJson = function () {
@@ -49,14 +45,14 @@ const Restaurant = (function () {
 }());
 
 /**
-* Main
-* @param {object} $ jQuery reference
-*/
+ * Main
+ * @param {object} $ jQuery reference
+ */
 const Main = (function ($) {
     "use strict";
     const tableHtml = $("table").html();
     /**
-    */
+     */
     const _addTableHtml = function (num) {
         $("div").append(
             `
@@ -67,8 +63,13 @@ const Main = (function ($) {
         $("table#table" + num).html(tableHtml);
     };
     /**
-    */
+     */
     const display = function (ordObj) {
+        const _getTimeClass = function (orderByTime) {
+            return (Date.now() > orderByTime)
+                ? "text-danger"
+                : "text-success";
+        };
         Object.keys(ordObj).forEach(
             function (groupOrdKey, index) {
                 let num = index;
@@ -76,9 +77,9 @@ const Main = (function ($) {
                 let orderByTime = ordObj[groupOrdKey].orderByTime;
                 _addTableHtml(num);
                 $("table#table" + num + " caption").text(
-                    ordObj[groupOrdKey].restaurant +
-                    " pickup time: " +
-                    Utils.datify(ordObj[groupOrdKey].pickupTime)
+                    ordObj[groupOrdKey].restaurant
+                    + " pickup time: "
+                    + Utils.datify(ordObj[groupOrdKey].pickupTime)
                 );
                 ordObj[groupOrdKey].orders.forEach(
                     function (curVal, index) {
@@ -86,18 +87,18 @@ const Main = (function ($) {
                         let tax = price * 0.07;
                         let total = price + tax;
                         $("table#table" + num + " tbody").append(
-                            "<tr>" +
-                            "<td class=\"text-center\">" +
-                            (index + 1) + "</td>" +
-                            "<td>" + curVal.userID + "</td>" +
-                            "<td>" + curVal.order + "</td>" +
-                            "<td class=\"money-cell\">" +
-                            Utils.monify(price) + "</td>" +
-                            "<td class=\"money-cell\">" +
-                            Utils.monify(tax) + "</td>" +
-                            "<td class=\"money-cell\">" +
-                            Utils.monify(total) + "</td>" +
-                            "</tr>"
+                            "<tr>"
+                            + "<td class=\"text-center\">"
+                            + (index + 1) + "</td>"
+                            + "<td>" + curVal.userID + "</td>"
+                            + "<td>" + curVal.order + "</td>"
+                            + "<td class=\"money-cell\">"
+                            + Utils.monify(price) + "</td>"
+                            + "<td class=\"money-cell\">"
+                            + Utils.monify(tax) + "</td>"
+                            + "<td class=\"money-cell\">"
+                            + Utils.monify(total) + "</td>"
+                            + "</tr>"
                         );
                         grandTotal += total;
                     }
@@ -113,9 +114,7 @@ const Main = (function ($) {
                                 return false;">
                                 Enter/Edit Order
                             </a>
-                        <td class="${(Date.now() > orderByTime)
-                        ? "text-danger"
-                        : "text-success"}">
+                        <td class="${_getTimeClass(orderByTime)}">
                             orders by:
                             ${Utils.datify(orderByTime)}
                         </td>
@@ -133,22 +132,22 @@ const Main = (function ($) {
 }(jQuery));
 
 /**
-* Orders
-*/
+ * Orders
+ */
 const Orders = (function () {
     "use strict";
     const formHtml = $("form").html();
     /**
-    * add to group order
-    */
+     * add to group order
+     */
     const addUserOrder = function (groupOrdKey) {
         $("div.container").empty();
         $("div.container").html(
-            "<h2>Hog Trough</h2>" +
-            "<form class=\"form-horizontal\">" +
-            formHtml +
-            "</form>" +
-            "<p>" + groupOrdKey + "</p>"
+            "<h2>Hog Trough</h2>"
+            + "<form class=\"form-horizontal\">"
+            + formHtml
+            + "</form>"
+            + "<p>" + groupOrdKey + "</p>"
         );
         Object.keys(Restaurant.getJson()).forEach(
             function (key) {
@@ -159,22 +158,22 @@ const Orders = (function () {
         );
     };
     /**
-    * edit user order
-    */
+     * edit user order
+     */
     const editUserOrder = function () {
         return;
     };
     const get = function () {
         return ORDERS_ARR.reduce(
             /**
-            * restaurant (key 1)
-            * filed time (key 2)
-            * order by time in milliseconds
-            * pickup time in milliseconds
-            * userID
-            * order text
-            * price
-            */
+             * restaurant (key 1)
+             * filed time (key 2)
+             * order by time in milliseconds
+             * pickup time in milliseconds
+             * userID
+             * order text
+             * price
+             */
             function (obj, curVal) {
                 let ordKey = curVal[0].replace(/\W/g, "") + curVal[1];
                 if (obj[ordKey] === undefined) {
@@ -184,21 +183,18 @@ const Orders = (function () {
                     obj[ordKey].pickupTime = curVal[3];
                     obj[ordKey].orders = [];
                 }
-                obj[ordKey].orders.push(
-                    {
-                        "userID": curVal[4],
-                        "order": curVal[5],
-                        "price": curVal[6]
-                    }
-                );
+                obj[ordKey].orders.push({
+                    "userID": curVal[4],
+                    "order": curVal[5],
+                    "price": curVal[6]
+                });
                 return obj;
-            },
-            {}
+            }, {}
         );
     };
     /**
-    * new group order
-    */
+     * new group order
+     */
     const newGroupOrder = function () {
         return;
     };
