@@ -4,9 +4,6 @@
  */
 (function () {
     "use strict";
-    /**
-     * @param {object} $ jQuery reference
-     */
     takeout.main = (function ($) {
         const tableHtml = $("table").html();
         /**

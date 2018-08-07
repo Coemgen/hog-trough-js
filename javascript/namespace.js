@@ -1,4 +1,5 @@
 /**
+ * Set global namespace for takeout orders project
  * @namespace takeout
  */
 (function () {

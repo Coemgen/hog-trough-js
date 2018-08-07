@@ -1,4 +1,4 @@
-http://usejsdoc.org/index.html#block-tags
+﻿http://usejsdoc.org/index.html#block-tags
 
 https://www.w3schools.com/html/html5_syntax.asp
 
@@ -111,4 +111,30 @@ name="orderPrice"
                     "<td>" +
                     ordersObj.orderPrice +
                     "</td>" +
+
+;;;;;;;;;;;;;;;;;;
+
+/**
+ * @namespace Orders
+ * @memberof takeout
+ */
+(function () {
+    "use strict";
+    takeout.Orders = (function ($) {
+        return {
+            /**
+             * Open Orders page.
+             * @function display
+             * @memberof! takeout.Orders
+             * @param {object} jQuery The jQuery global.
+             */
+            new: function () {
+                $("div#main").empty();
+                $("#ordersview").attr("hidden", false);
+            }
+        };
+    }(jQuery));
+}());
+
+;;;;;;;;;;;;;;;;;;;
 
