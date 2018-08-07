@@ -70,7 +70,7 @@
                                 onclick="takeout.orders.addUserOrder(
                                 ${"'" + groupOrdKey + "'"});
                                 return false;">
-                                Enter/Edit Order
+                                Add New Order
                             </a>
                         <td class="${_getTimeClass(orderByTime)}">
                             orders by:
