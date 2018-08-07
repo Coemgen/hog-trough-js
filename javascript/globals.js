@@ -9,7 +9,7 @@ const ORDERS_ARR = [
         9.99 // price
     ],
     ["BERTUCCI'S",1532469292000,1533117300000,1533117400000,"Smith,Lisa","giambotta",18.99],
-    ["PAPA GINO'S",1532469292249,,,"Griffin,Kevin","Large pizza",11.99]
+    ["PAPA GINO'S",1532469292249,"","","Griffin,Kevin","Large pizza",11.99]
 ];
 
 const USER_ID = "Griffin,Kevin";
