@@ -1,15 +1,15 @@
 /**
  * @namespace Orders
- * @memberof HT
+ * @memberof takeout
  */
 (function () {
     "use strict";
-    HT.Orders = (function ($) {
+    takeout.Orders = (function ($) {
         return {
             /**
              * Open Orders page.
              * @function display
-             * @memberof! HT.Orders
+             * @memberof! takeout.Orders
              * @param {object} jQuery The jQuery global.
              */
             new: function () {

@@ -27,6 +27,10 @@
         "multiline-ternary": [
             "error",
             "always"
+        ],
+        "strict": [
+            "error",
+            "function"
         ]
     },
     "globals": {
@@ -34,7 +38,6 @@
         "ORDERS_ARR": true,
         "REST_ARR": true,
         "jQuery": true,
-        "utils": true,
-        "restaurant": true
+        "takeout": true
     }
 }
