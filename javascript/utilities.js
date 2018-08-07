@@ -8,9 +8,10 @@
         /**
          * @function datify
          * @memberof! takeout.utilities
-         * @param {number} milSecs Number of milliseconds to be converted
+         * @param {number} milSecs Number of milliseconds to be converted to
+         * date string
          * @returns {string} A human readable date and time string in U.S.
-         *  format
+         * format
          */
         const datify = function (milSecs) {
             let dt = new Date(milSecs);
@@ -19,7 +20,7 @@
         /**
          * @function monify
          * @memberof! takeout.utilities
-         * @param {number} Calculated money value
+         * @param {number} sum Calculated money value
          * @returns {string} Money value formatted as U.S. dollar string
          */
         const monify = function (sum) {

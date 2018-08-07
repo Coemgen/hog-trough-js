@@ -24,9 +24,9 @@
          */
         const display = function (ordObj) {
             const _getTimeClass = function (orderByTime) {
-                return (Date.now() > orderByTime) ?
-                    "text-danger" :
-                    "text-success";
+                return (Date.now() > orderByTime)
+                    ? "text-danger"
+                    : "text-success";
             };
             Object.keys(ordObj).forEach(
                 function (groupOrdKey, index) {
@@ -35,9 +35,9 @@
                     let orderByTime = ordObj[groupOrdKey].orderByTime;
                     _addTableHtml(num);
                     $("table#table" + num + " caption").text(
-                        ordObj[groupOrdKey].restaurant +
-                        " pickup time: " +
-                        takeout.utilities.datify(ordObj[groupOrdKey].pickupTime)
+                        ordObj[groupOrdKey].restaurant
+                        + " pickup time: "
+                        + takeout.utilities.datify(ordObj[groupOrdKey].pickupTime)
                     );
                     ordObj[groupOrdKey].orders.forEach(
                         function (curVal, index) {
@@ -45,18 +45,18 @@
                             let tax = price * 0.07;
                             let total = price + tax;
                             $("table#table" + num + " tbody").append(
-                                "<tr>" +
-                                "<td class=\"text-center\">" +
-                                (index + 1) + "</td>" +
-                                "<td>" + curVal.userID + "</td>" +
-                                "<td>" + curVal.order + "</td>" +
-                                "<td class=\"money-cell\">" +
-                                takeout.utilities.monify(price) + "</td>" +
-                                "<td class=\"money-cell\">" +
-                                takeout.utilities.monify(tax) + "</td>" +
-                                "<td class=\"money-cell\">" +
-                                takeout.utilities.monify(total) + "</td>" +
-                                "</tr>"
+                                "<tr>"
+                                + "<td class=\"text-center\">"
+                                + (index + 1) + "</td>"
+                                + "<td>" + curVal.userID + "</td>"
+                                + "<td>" + curVal.order + "</td>"
+                                + "<td class=\"money-cell\">"
+                                + takeout.utilities.monify(price) + "</td>"
+                                + "<td class=\"money-cell\">"
+                                + takeout.utilities.monify(tax) + "</td>"
+                                + "<td class=\"money-cell\">"
+                                + takeout.utilities.monify(total) + "</td>"
+                                + "</tr>"
                             );
                             grandTotal += total;
                         }
