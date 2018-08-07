@@ -5,36 +5,6 @@
 (function () {
     "use strict";
     takeout.orders = (function () {
-        const formHtml = $("form").html();
-        /**
-         * @function addUserOrder
-         * @memberof! takeout.orders
-         * @param {string} groupOrdKey
-         */
-        const addUserOrder = function (groupOrdKey) {
-            $("div.container").empty();
-            $("div.container").html(
-                "<h2>Hog Trough</h2>" +
-                "<form class=\"form-horizontal\">" +
-                formHtml +
-                "</form>" +
-                "<p>" + groupOrdKey + "</p>"
-            );
-            Object.keys(takeout.restaurant.getJson()).forEach(
-                function (key) {
-                    $("select").append(
-                        `<option value="${key}">${key}</option>`
-                    );
-                }
-            );
-        };
-        /**
-         * @function editUserOrder
-         * @memberof! takeout.orders
-         */
-        const editUserOrder = function () {
-            return;
-        };
         /**
          * @function get
          * @memberof! takeout.orders
@@ -68,6 +38,43 @@
                     return obj;
                 }, {}
             );
+        };
+        const formHtml = $("form").html();
+        /**
+         * @function addUserOrder
+         * @memberof! takeout.orders
+         * @param {string} groupOrdKey
+         */
+        const addUserOrder = function (groupOrdKey) {
+            const restr = get()[groupOrdKey].restaurant;
+            $("div.container").empty();
+            $("div.container").html(
+                "<h2>Hog Trough</h2>"
+                + "<form class=\"form-horizontal\">"
+                + formHtml
+                + "</form>"
+                + "<p>" + groupOrdKey + "</p>"
+            );
+            $("select").attr("disabled", true);
+            $("select option").val(restr);
+            $("select option").text(restr);
+            $("#menu-link").attr(
+                "href", takeout.restaurant.getJson()[restr] || "www.google.com"
+            );
+        };
+        /**
+         * @function editUserOrder
+         * @memberof! takeout.orders
+         */
+        const editUserOrder = function () {
+            // Object.keys(takeout.restaurant.getJson()).forEach(
+            //     function (key) {
+            //         $("select").append(
+            //             `<option value="${key}">${key}</option>`
+            //         );
+            //     }
+            // );
+            return;
         };
         /**
          * @function newGroupOrder
