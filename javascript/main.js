@@ -1,10 +1,11 @@
+/*globals $, ORDERS_ARR, REST_ARR, USER_ID, takeout*/
 /**
  * @namespace main
  * @memberof takeout
  */
 (function () {
     "use strict";
-    takeout.main = (function ($) {
+    takeout.main = (function () {
         const tableHtml = $("table").html();
         /**
          */
@@ -22,7 +23,8 @@
          * @memberof! takeout.main
          * @param {object} ordObj
          */
-        const display = function (ordObj) {
+        const display = function () {
+            const ordObj = takeout.orders.get();
             const _getTimeClass = function (orderByTime) {
                 return (Date.now() > orderByTime)
                     ? "text-danger"
@@ -88,11 +90,7 @@
         return {
             display
         };
-    }(jQuery));
+    }());
 }());
 
-$(function () {
-    "use strict";
-    let ordObj = takeout.orders.get();
-    takeout.main.display(ordObj);
-});
+$(takeout.main.display);
