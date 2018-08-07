@@ -33,6 +33,8 @@
         "$": true,
         "ORDERS_ARR": true,
         "REST_ARR": true,
-        "jQuery": true
+        "jQuery": true,
+        "utils": true,
+        "restaurant": true
     }
 }

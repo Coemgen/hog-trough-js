@@ -1,49 +1,4 @@
 /**
- * Utils
- */
-const Utils = (function () {
-    "use strict";
-    const datify = function (milSecs) {
-        let dt = new Date(milSecs);
-        return dt.toLocaleString("en-US");
-    };
-    const monify = function (sum) {
-        return sum.toLocaleString(
-            "en-US", {
-                style: "currency",
-                currency: "USD",
-                maximumFractionDigits: 2
-            }
-        );
-    };
-    return {
-        datify,
-        monify
-    };
-}());
-
-/**
- *
- */
-const Restaurant = (function () {
-    "use strict";
-    const json = (function () {
-        return REST_ARR.reduce(
-            function (json, restArr) {
-                json[restArr[0]] = restArr[1];
-                return json;
-            }, {}
-        );
-    }());
-    const getJson = function () {
-        return json;
-    };
-    return {
-        getJson
-    };
-}());
-
-/**
  * Main
  * @param {object} $ jQuery reference
  */
@@ -78,7 +33,7 @@ const Main = (function ($) {
                 $("table#table" + num + " caption").text(
                     ordObj[groupOrdKey].restaurant
                     + " pickup time: "
-                    + Utils.datify(ordObj[groupOrdKey].pickupTime)
+                    + utils.datify(ordObj[groupOrdKey].pickupTime)
                 );
                 ordObj[groupOrdKey].orders.forEach(
                     function (curVal, index) {
@@ -92,11 +47,11 @@ const Main = (function ($) {
                             + "<td>" + curVal.userID + "</td>"
                             + "<td>" + curVal.order + "</td>"
                             + "<td class=\"money-cell\">"
-                            + Utils.monify(price) + "</td>"
+                            + utils.monify(price) + "</td>"
                             + "<td class=\"money-cell\">"
-                            + Utils.monify(tax) + "</td>"
+                            + utils.monify(tax) + "</td>"
                             + "<td class=\"money-cell\">"
-                            + Utils.monify(total) + "</td>"
+                            + utils.monify(total) + "</td>"
                             + "</tr>"
                         );
                         grandTotal += total;
@@ -115,10 +70,10 @@ const Main = (function ($) {
                             </a>
                         <td class="${_getTimeClass(orderByTime)}">
                             orders by:
-                            ${Utils.datify(orderByTime)}
+                            ${utils.datify(orderByTime)}
                         </td>
                         <th class="money-cell" colspan="2">Grand total:</th>
-                        <th class="money-cell">${Utils.monify(grandTotal)}</th>
+                        <th class="money-cell">${utils.monify(grandTotal)}</th>
                     </tr>
                     `
                 );
@@ -148,7 +103,7 @@ const Orders = (function () {
             + "</form>"
             + "<p>" + groupOrdKey + "</p>"
         );
-        Object.keys(Restaurant.getJson()).forEach(
+        Object.keys(restaurant.getJson()).forEach(
             function (key) {
                 $("select").append(
                     `<option value="${key}">${key}</option>`
