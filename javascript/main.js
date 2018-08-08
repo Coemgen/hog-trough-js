@@ -96,6 +96,7 @@
          */
         const init = function () {
             display();
+            // event listener(s)
             $("form").on(
                 "submit",
                 function () {
@@ -105,6 +106,12 @@
                     display();
                 }
             );
+            // timers(s)
+            // TODO: add trigger(s)
+            // myVar = window.setTimeout(function, milliseconds);
+            // clearTimeout(myVar);
+            // myVar = window.setInterval(function, milliseconds);
+            // clearTimeout(myVar);
         };
         return {
             display,
