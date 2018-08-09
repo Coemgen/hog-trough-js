@@ -50,12 +50,16 @@
             const restr = get()[groupOrdKey].restaurant;
             $("table").remove();
             $("form").show();
+            // N.b., reset() is native JavaScript and
+            // $("#form-order")[0] === document.getElementById("form-order")
+            document.getElementById("form-order").reset();
             $("form input#ord-key").attr("value", groupOrdKey);
-            $("select").attr("disabled", true);
-            $("select option").val(restr);
-            $("select option").text(restr);
+            $("form select").attr("disabled", true);
+            $("form select").append(
+                `<option value="${restr}" selected>${restr}</option>`
+            );
             $("#menu-link").attr(
-                "href", takeout.restaurant.getJson()[restr] || "www.google.com"
+                "href", takeout.restaurant.getJson()[restr]
             );
         };
         /**
