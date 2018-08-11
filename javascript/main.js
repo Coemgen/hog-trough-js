@@ -106,7 +106,7 @@
                     display();
                 }
             );
-            $("form button[type=\"button\"").on(
+            $("form button[type=\"button\"]").on(
                 "click",
                 function () {
                     $("form").hide();
