@@ -11,7 +11,14 @@
 
 <body>
     <div class="container">
-        <h2>Takeout Orders</h2>
+        <h2>
+            Takeout Orders
+            <span>
+                <button class="btn btn-default btn-sm">
+                    Add New Group Order
+                </button>
+            </span>
+        </h2>
         <table hidden>
             <caption></caption>
             <thead>
@@ -27,7 +34,6 @@
             <tfoot></tfoot>
             <tbody></tbody>
         </table>
-
         <form id="form-order" class="form-horizontal" action="" hidden>
             <input id="ord-key" type="hidden">
             <div class="form-group">
@@ -56,7 +62,6 @@
                 </div>
             </div>
         </form>
-
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

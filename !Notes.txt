@@ -1,4 +1,4 @@
-﻿http://usejsdoc.org/index.html#block-tags
+http://usejsdoc.org/index.html#block-tags
 
 https://www.w3schools.com/html/html5_syntax.asp
 
@@ -137,4 +137,14 @@ name="orderPrice"
 }());
 
 ;;;;;;;;;;;;;;;;;;;
+
+            $("div").append(
+                `<div>
+                    <button class="button btn-success btn-sm">
+                    Add New Group Order
+                    </button>
+                </div>`
+            );
+
+;;;;;;;;
 
