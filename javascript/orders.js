@@ -48,6 +48,7 @@
          */
         const addUserOrder = function (groupOrdKey) {
             const restr = get()[groupOrdKey].restaurant;
+            $("h2 span").hide();
             $("table").remove();
             $("form").show();
             // N.b., reset() is native JavaScript and
@@ -67,13 +68,6 @@
          * @memberof! takeout.orders
          */
         const editUserOrder = function () {
-            // Object.keys(takeout.restaurant.getJson()).forEach(
-            //     function (key) {
-            //         $("select").append(
-            //             `<option value="${key}">${key}</option>`
-            //         );
-            //     }
-            // );
             return;
         };
         /**
@@ -96,6 +90,13 @@
          * @memberof! takeout.orders
          */
         const newGroupOrder = function () {
+            // Object.keys(takeout.restaurant.getJson()).forEach(
+            //     function (key) {
+            //         $("select").append(
+            //             `<option value="${key}">${key}</option>`
+            //         );
+            //     }
+            // );
             return;
         };
         return {

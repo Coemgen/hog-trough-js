@@ -74,7 +74,7 @@
                                 onclick="takeout.orders.addUserOrder(
                                 ${"'" + groupOrdKey + "'"});
                                 return false;">
-                                Add New Order
+                                Add Me
                             </a>
                         <td class="${_getTimeClass(orderByTime)}">
                             orders by:
@@ -106,11 +106,18 @@
                     display();
                 }
             );
-            $("form button[type=\"button\"]").on(
+            $("form button[type=\"button\"").on(
                 "click",
                 function () {
                     $("form").hide();
+                    $("h2 span").show();
                     display();
+                }
+            );
+            $("h2 span button").on(
+                "click",
+                function () {
+                    alert(1234);
                 }
             );
             // timers(s)
