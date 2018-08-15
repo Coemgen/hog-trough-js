@@ -117,7 +117,17 @@
             $("h2 span button").on(
                 "click",
                 function () {
-                    alert(1234);
+                    takeout.orders.newGroupOrder();
+                }
+            );
+            $("select").on(
+                "change",
+                function () {
+                    $("#menu-link").attr(
+                        "href", takeout.restaurant.getJson()[
+                            $("option:selected").val()
+                        ]
+                    );
                 }
             );
             // timers(s)

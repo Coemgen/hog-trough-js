@@ -90,13 +90,17 @@
          * @memberof! takeout.orders
          */
         const newGroupOrder = function () {
-            // Object.keys(takeout.restaurant.getJson()).forEach(
-            //     function (key) {
-            //         $("select").append(
-            //             `<option value="${key}">${key}</option>`
-            //         );
-            //     }
-            // );
+            $("h2 span").hide();
+            $("table").remove();
+            $("form").show();
+            document.getElementById("form-order").reset();
+            Object.keys(takeout.restaurant.getJson()).forEach(
+                function (key) {
+                    $("select").append(
+                        `<option value="${key}">${key}</option>`
+                    );
+                }
+            );
             return;
         };
         return {
