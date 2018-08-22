@@ -1,4 +1,4 @@
-/*globals $, ORDERS_ARR, REST_ARR, USER_ID, takeout*/
+/*global $, ORDERS_ARR, REST_ARR, USER_ID, takeout*/
 /**
  * @namespace utilities
  * @memberof takeout
