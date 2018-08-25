@@ -179,7 +179,7 @@
             document.getElementById("form-order").reset();
             $("div#num-orders").show();
             $("div#order-by-time").show();
-            $("pickup-time").show();
+            $("div#pickup-time").show();
             $("select#restaurant").attr("disabled", false);
             Object.keys(takeout.restaurants.getJson()).forEach(
                 function (key) {
@@ -188,6 +188,8 @@
                     );
                 }
             );
+            $("#order-by-time-input").val(takeout.utilities.getUtcDate());
+            $("#pickup-time-input").val(takeout.utilities.getUtcDate());
             return;
         };
         return {

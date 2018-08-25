@@ -33,9 +33,30 @@
                 }
             );
         };
+        /**
+         * @function utcDate
+         * @memberof! takeout.utilities
+         * @returns {string} Current date and time in UTC format
+         */
+        const getUtcDate = function (sum) {
+            let d = new Date();
+            let yyyy = d.getFullYear();
+            let mm = d.getMonth() + 1;
+            let dd = d.getDate();
+            let hh = d.getHours();
+            let MM = d.getMinutes();
+            return yyyy + "-"
+                + mm.toString().padStart(2, "0") + "-"
+                + dd.toString().padStart(2, "0")
+                + "T"
+                + hh.toString().padStart(2, "0") + ":"
+                + MM.toString().padStart(2, "0") + ":"
+                + "00";
+        };
         return {
             datify,
-            monify
+            monify,
+            getUtcDate
         };
     }());
 }());
