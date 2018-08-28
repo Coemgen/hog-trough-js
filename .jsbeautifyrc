@@ -12,8 +12,10 @@
         "indent_size": 1
     },
     "js": {
-        "jslint_happy": false,
+        "end_with_newline": true,
+        "jslint_happy": true,
         "operator_position": "after-newline",
-        "preserve-newlines": true
+        "preserve-newlines": true,
+        "space_after_anon_function": true
     }
 }
